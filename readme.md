@@ -1,6 +1,6 @@
 # MC_Random.py
 
-A python 3.6 implementation of the Measurement Canada [S-S-01—Specifications for random sampling and randomization](S-S-01—Specifications for random sampling and randomization)
+A python 3.6 implementation of the Measurement Canada [S-S-01—Specifications for random sampling and randomization](https://strategis.ic.gc.ca/eic/site/mc-mc.nsf/eng/lm00180.html)
 
 ## Installation
 

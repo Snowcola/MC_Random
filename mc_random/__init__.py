@@ -1,1 +1,1 @@
-from .mc_random import RandomSample
+from .mc_random import RandomSample # noqa

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Snowcola/MC_Random.svg?branch=master)](https://travis-ci.org/Snowcola/MC_Random)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT )  
+[![Build Status](https://travis-ci.org/Snowcola/MC_Random.svg?branch=master)](https://travis-ci.org/Snowcola/MC_Random) [![codecov](https://codecov.io/gh/Snowcola/MC_Random/branch/master/graph/badge.svg)](https://codecov.io/gh/Snowcola/MC_Random) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT )  
 # MC_Random.py
 
 A python 3.6 implementation of the Measurement Canada [S-S-01—Specifications for random sampling and randomization](https://strategis.ic.gc.ca/eic/site/mc-mc.nsf/eng/lm00180.html)

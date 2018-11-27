@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT )   [![CircleCI](https://circleci.com/gh/Snowcola/MC_Random/tree/master.svg?style=svg)](https://circleci.com/gh/Snowcola/MC_Random/tree/master)
+
 # MC_Random.py
 
 A python 3.6 implementation of the Measurement Canada [S-S-01—Specifications for random sampling and randomization](https://strategis.ic.gc.ca/eic/site/mc-mc.nsf/eng/lm00180.html)

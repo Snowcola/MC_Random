@@ -6,30 +6,41 @@ class Modes:
     SINGLE = 1
     DOUBLE = 2
 
-
+    
 class RandomSample:
 
     def __init__(self, lot_size=3000, sample_size=80,
                  single=True, date=None, seed=None):
         self.lot_size = lot_size
         self.sample_size = sample_size
-        self.seed = seed
-        if single:
-            self.mode = Modes.SINGLE
-        else:
-            self.mode = Modes.DOUBLE
-        if date:
-            self.date = date
-        else:
-            self.date = datetime.datetime.utcnow()
+        self.mode = self.set_mode(single)
+        self.date = self.set_date(date)
         self.s_e = self.seconds_elapsed_mc(self.date)
-        if not self.seed:
-            self.seed = self.automatic_seed_generation()
+        self.seed = self.set_seed(seed)
         self.shuffling_array = self.rng_array()
         self.start_array = self.shuffling_array[:]
         sample = self.cong_reoc()
         self.samples = sample[:2]
         self.stat_sample = sample[2]
+
+    @staticmethod
+    def set_mode(mode):
+        if mode:
+            return Modes.SINGLE
+        else:
+            return Modes.DOUBLE
+
+    def set_seed(self, seed):
+        if not seed:
+            return self.automatic_seed_generation()
+        return seed
+    
+    @staticmethod
+    def set_date(date):
+        if date:
+            return date
+        else:
+            return datetime.datetime.utcnow()
 
     @staticmethod
     def seconds_elapsed_mc(current_date):

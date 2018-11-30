@@ -31,13 +31,13 @@ class RandomSample:
             mode {bool} -- True if sampling mode is single
         
         Returns:
-            Mode -- Sampling mode chosen
+            Mode -- Sampling mode chosen single: 1, double: 2
         """
 
         if mode:
-            return Modes.SINGLE
+            return Mode.SINGLE
         else:
-            return Modes.DOUBLE
+            return Mode.DOUBLE
 
     def set_seed(self, seed: int) -> int:
         """Generate a seed if one is not provided

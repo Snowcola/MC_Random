@@ -6,11 +6,11 @@ class Mode:
     SINGLE = 1
     DOUBLE = 2
 
-    
-class RandomSample:
 
-    def __init__(self, lot_size=3000, sample_size=80,
-                 single: bool = True, date=None, seed=None):
+class RandomSample:
+    def __init__(
+        self, lot_size=3000, sample_size=80, single: bool = True, date=None, seed=None
+    ):
         self.lot_size = lot_size
         self.sample_size = sample_size
         self.mode = self.set_mode(single)
@@ -52,7 +52,7 @@ class RandomSample:
         if not seed:
             return self.automatic_seed_generation()
         return seed
-    
+
     @staticmethod
     def set_date(date: datetime) -> datetime:
         """Set date to current date if one is not provided
@@ -82,10 +82,21 @@ class RandomSample:
         if m_1 < 3:
             m_1 += 12
             y += -1
-        d_e = int(d+((153*m_1 - 457)/5) + 365*y +
-                    (y/4) - (y/100) + (y/400) - 730426)
-        seconds_elapsed = 86400*d_e + current_date.hour*3600 + current_date.minute*60 +  \
-            current_date.second
+        d_e = int(
+            d
+            + ((153 * m_1 - 457) / 5)
+            + 365 * y
+            + (y / 4)
+            - (y / 100)
+            + (y / 400)
+            - 730426
+        )
+        seconds_elapsed = (
+            86400 * d_e
+            + current_date.hour * 3600
+            + current_date.minute * 60
+            + current_date.second
+        )
 
         return int(seconds_elapsed)
 
@@ -96,7 +107,7 @@ class RandomSample:
         the randomization function
         """
         jstr = str(seconds_elapsed)[-2:]
-        j = int(jstr)+1
+        j = int(jstr) + 1
         return j
 
     def automatic_seed_generation(self) -> int:
@@ -106,16 +117,16 @@ class RandomSample:
         seed = self.s_e
         j = self.j_times(seed)
         for _ in range(j):
-            seed = 40692*seed % 2147483399
+            seed = 40692 * seed % 2147483399
         return int(seed)
 
     @staticmethod
     def next_x(x) -> int:
-        return 40014*x % 2147483563
+        return 40014 * x % 2147483563
 
     @staticmethod
     def next_y(y) -> int:
-        return 40692*y % 2147483399
+        return 40692 * y % 2147483399
 
     def rng_array(self):
         """
@@ -124,13 +135,13 @@ class RandomSample:
         x = self.seed
         A = []
         for _ in range(40):
-            x = 40014*x % 2147483563
+            x = 40014 * x % 2147483563
             A.append(x)
         A = A[8:]
         A.reverse()
         return A
 
-    def create_random_sample(self) -> ([int],[int],[int]):
+    def create_random_sample(self) -> ([int], [int], [int]):
         """
         Calculate the random sample using the shuffling array and seed
         and both rnadomization functions
@@ -140,30 +151,30 @@ class RandomSample:
         y = self.seed
         ls = []
         ks = []
-        while len(set(ls)) < self.sample_size*self.mode:
+        while len(set(ls)) < self.sample_size * self.mode:
             x_i_plus_1 = self.next_x(x)
             x = x_i_plus_1
 
             y_i_plus_1 = self.next_y(y)
             y = y_i_plus_1
 
-            J = int((32*k / 2147483563) + 1)
+            J = int((32 * k / 2147483563) + 1)
 
-            k = self.shuffling_array[J-1] - y_i_plus_1
+            k = self.shuffling_array[J - 1] - y_i_plus_1
 
-            self.shuffling_array[J-1] = x_i_plus_1
+            self.shuffling_array[J - 1] = x_i_plus_1
 
             if k < 1:
                 k += 2147483562
 
             if k not in ks:
                 ks.append(k)
-            ls.append(int(k/2147483563*self.lot_size+1))
+            ls.append(int(k / 2147483563 * self.lot_size + 1))
 
         sample = list(OrderedDict.fromkeys(ls))
 
-        s_1 = sample[:self.sample_size]
-        s_2 = sample[self.sample_size:]
+        s_1 = sample[: self.sample_size]
+        s_2 = sample[self.sample_size :]
 
         return s_1, s_2, ks
 

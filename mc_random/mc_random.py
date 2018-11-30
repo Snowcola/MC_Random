@@ -2,7 +2,7 @@ import datetime
 from collections import OrderedDict
 
 
-class Modes:
+class Mode:
     SINGLE = 1
     DOUBLE = 2
 
@@ -24,19 +24,47 @@ class RandomSample:
         self.stat_sample = sample[2]
 
     @staticmethod
-    def set_mode(mode: int) -> int:
+    def set_mode(mode: bool) -> Mode:
+        """Set sampling mode to single or double
+        
+        Arguments:
+            mode {bool} -- True if sampling mode is single
+        
+        Returns:
+            Mode -- Sampling mode chosen
+        """
+
         if mode:
             return Modes.SINGLE
         else:
             return Modes.DOUBLE
 
-    def set_seed(self, seed) -> int:
+    def set_seed(self, seed: int) -> int:
+        """Generate a seed if one is not provided
+        
+        Arguments:
+            seed {int} -- seed 1 from seconds elapsed calculation
+        
+        Returns:
+            int -- seed 2: final random sample seed
+        """
+
         if not seed:
             return self.automatic_seed_generation()
         return seed
     
     @staticmethod
     def set_date(date: datetime) -> datetime:
+        """Set date to current date if one is not provided
+        
+        Arguments:
+            date {datetime} -- date that should be used for seed generation, 
+                               default is None
+        
+        Returns:
+            datetime -- date that will be used for seed generation
+        """
+
         if date:
             return date
         else:

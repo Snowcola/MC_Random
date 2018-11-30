@@ -19,7 +19,7 @@ class RandomSample:
         self.seed = self.set_seed(seed)
         self.shuffling_array = self.rng_array()
         self.start_array = self.shuffling_array[:]
-        sample = self.cong_reoc()
+        sample = self.create_random_sample()
         self.samples = sample[:2]
         self.stat_sample = sample[2]
 
@@ -44,6 +44,9 @@ class RandomSample:
 
     @staticmethod
     def seconds_elapsed_mc(current_date):
+        """
+        Calculate time since 2000-01-01 00:00:00 in seconds
+        """
         m_1 = current_date.month
         y = current_date.year
         d = current_date.day
@@ -53,18 +56,25 @@ class RandomSample:
             y += -1
         d_e = int(d+((153*m_1 - 457)/5) + 365*y +
                     (y/4) - (y/100) + (y/400) - 730426)
-        s_e = 86400*d_e + current_date.hour*3600 + current_date.minute*60 +  \
+        seconds_elapsed = 86400*d_e + current_date.hour*3600 + current_date.minute*60 +  \
             current_date.second
 
-        return int(s_e)  # time since 2000-01-01 00:00:00 in seconds
+        return int(seconds_elapsed)
 
     @staticmethod
     def j_times(seconds_elapsed):
+        """
+        Calculates # of times seed1 (seconds elapsed since 2000-01-01) should be passed through
+        the randomization function
+        """
         jstr = str(seconds_elapsed)[-2:]
         j = int(jstr)+1
         return j
 
     def automatic_seed_generation(self):
+        """
+        Generate seed based on system current dateime
+        """
         seed = self.s_e
         j = self.j_times(seed)
         for _ in range(j):
@@ -80,6 +90,9 @@ class RandomSample:
         return 40692*y % 2147483399
 
     def rng_array(self):
+        """
+        Create a 32 element shuffling array for random number generation
+        """
         x = self.seed
         A = []
         for _ in range(40):
@@ -89,7 +102,11 @@ class RandomSample:
         A.reverse()
         return A
 
-    def cong_reoc(self):
+    def create_random_sample(self):
+        """
+        Calculate the random sample using the shuffling array and seed
+        and both rnadomization functions
+        """
         k = self.shuffling_array[0]
         x = self.shuffling_array[0]
         y = self.seed

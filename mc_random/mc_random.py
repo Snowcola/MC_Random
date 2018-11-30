@@ -10,7 +10,7 @@ class Modes:
 class RandomSample:
 
     def __init__(self, lot_size=3000, sample_size=80,
-                 single=True, date=None, seed=None):
+                 single: bool = True, date=None, seed=None):
         self.lot_size = lot_size
         self.sample_size = sample_size
         self.mode = self.set_mode(single)
@@ -24,26 +24,26 @@ class RandomSample:
         self.stat_sample = sample[2]
 
     @staticmethod
-    def set_mode(mode):
+    def set_mode(mode: int) -> int:
         if mode:
             return Modes.SINGLE
         else:
             return Modes.DOUBLE
 
-    def set_seed(self, seed):
+    def set_seed(self, seed) -> int:
         if not seed:
             return self.automatic_seed_generation()
         return seed
     
     @staticmethod
-    def set_date(date):
+    def set_date(date: datetime) -> datetime:
         if date:
             return date
         else:
             return datetime.datetime.utcnow()
 
     @staticmethod
-    def seconds_elapsed_mc(current_date):
+    def seconds_elapsed_mc(current_date: datetime) -> int:
         """
         Calculate time since 2000-01-01 00:00:00 in seconds
         """
@@ -62,7 +62,7 @@ class RandomSample:
         return int(seconds_elapsed)
 
     @staticmethod
-    def j_times(seconds_elapsed):
+    def j_times(seconds_elapsed: int) -> int:
         """
         Calculates # of times seed1 (seconds elapsed since 2000-01-01) should be passed through
         the randomization function
@@ -71,7 +71,7 @@ class RandomSample:
         j = int(jstr)+1
         return j
 
-    def automatic_seed_generation(self):
+    def automatic_seed_generation(self) -> int:
         """
         Generate seed based on system current dateime
         """
@@ -82,11 +82,11 @@ class RandomSample:
         return int(seed)
 
     @staticmethod
-    def next_x(x):
+    def next_x(x) -> int:
         return 40014*x % 2147483563
 
     @staticmethod
-    def next_y(y):
+    def next_y(y) -> int:
         return 40692*y % 2147483399
 
     def rng_array(self):
@@ -102,7 +102,7 @@ class RandomSample:
         A.reverse()
         return A
 
-    def create_random_sample(self):
+    def create_random_sample(self) -> ([int],[int],[int]):
         """
         Calculate the random sample using the shuffling array and seed
         and both rnadomization functions
@@ -140,7 +140,7 @@ class RandomSample:
         return s_1, s_2, ks
 
     @property
-    def samples_sorted(self):
+    def samples_sorted(self) -> [[int], [int]]:
         """
         Returns a list of a list of samples sorted in ascending order
         """
